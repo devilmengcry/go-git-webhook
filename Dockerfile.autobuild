@@ -6,7 +6,8 @@ RUN mkdir -p $PROJECT
 
 WORKDIR ${PROJECT}
 
-COPY . .
+# ADD https://api.github.com/repos/lifei6671/go-git-webhook/compare/master...HEAD /dev/null
+RUN git clone https://github.com/lifei6671/go-git-webhook.git .
 
 RUN  curl https://glide.sh/get | sh \
   && glide install \
@@ -28,3 +29,4 @@ COPY --from=build $PROJECT/bin/* ./
 RUN tar -zxvf go-git-webhook.tar.gz \
     && rm -rf go-git-webhook.tar.gz \
     && ln -s /go-git-webhook/go-git-webhook /usr/bin/
+
